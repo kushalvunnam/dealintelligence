@@ -4,6 +4,14 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5000/api' : '/api'),
 });
 
+// Detect if Vercel returned the index.html fallback instead of an actual API response
+api.interceptors.response.use((response) => {
+  if (typeof response.data === 'string' && response.data.trim().startsWith('<!doctype html>')) {
+    throw new Error('API not configured. The frontend is receiving HTML instead of JSON data. Please configure VITE_API_BASE_URL.');
+  }
+  return response;
+});
+
 export const getDeals = async () => {
   const response = await api.get('/deals');
   return response.data;

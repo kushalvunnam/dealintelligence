@@ -7,14 +7,22 @@ export default function Deals() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     getDeals().then(data => {
       setDeals(data);
+    }).catch(err => {
+      console.error(err);
+      setError(err.message);
+    }).finally(() => {
       setLoading(false);
-    }).catch(console.error);
+    });
   }, []);
 
   if (loading) return <div>Loading deals...</div>;
+  if (error) return <div className="p-8 text-red-600">Error: {error}</div>;
+  if (!Array.isArray(deals)) return <div className="p-8 text-red-600">Error: Unable to connect to the backend API. Please configure VITE_API_BASE_URL.</div>;
 
   return (
     <div className="space-y-6">

@@ -8,19 +8,28 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     getDeals().then(data => {
       setDeals(data);
+    }).catch(err => {
+      console.error(err);
+      setError(err.message);
+    }).finally(() => {
       setLoading(false);
-    }).catch(console.error);
+    });
   }, []);
 
-  const totalValue = deals.reduce((sum, d) => sum + d.value, 0);
+  const safeDeals = Array.isArray(deals) ? deals : [];
+  const totalValue = safeDeals.reduce((sum, d) => sum + (d.value || 0), 0);
   
   // Find ABC Motors for the Insight Card navigation
-  const abcDeal = deals.find(d => d.company === 'ABC Motors');
+  const abcDeal = safeDeals.find(d => d.company === 'ABC Motors');
 
   if (loading) return <div>Loading dashboard...</div>;
+  if (error) return <div className="p-8 text-red-600">Error: {error}</div>;
+  if (!Array.isArray(deals)) return <div className="p-8 text-red-600">Error: Unable to connect to the backend API. Please configure VITE_API_BASE_URL.</div>;
 
   return (
     <div className="space-y-6">

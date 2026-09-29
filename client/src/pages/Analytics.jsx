@@ -22,6 +22,10 @@ export default function Analytics() {
 
   if (loading) return <div>Loading analytics...</div>;
 
+  if (!Array.isArray(deals) || !Array.isArray(memories)) {
+    return <div className="p-8 text-red-600">Error: Unable to connect to the backend API. Please configure VITE_API_BASE_URL.</div>;
+  }
+
   // Process data for Stage Distribution
   const stageData = deals.reduce((acc, deal) => {
     const existing = acc.find(item => item.name === deal.stage);
