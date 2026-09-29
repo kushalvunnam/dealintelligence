@@ -88,7 +88,7 @@ const startServer = async () => {
     if (!uri) {
       if (process.env.NODE_ENV === 'production') {
         console.error('❌ FATAL: Production database configuration (MONGODB_URI) is missing.');
-        process.exit(1);
+        
       }
       console.log('No MONGODB_URI found, starting in-memory MongoDB for demo...');
       const { MongoMemoryServer } = require('mongodb-memory-server');
@@ -109,7 +109,7 @@ const startServer = async () => {
     });
   } catch (err) {
     console.error('MongoDB connection error:', err);
-    process.exit(1);
+    
   }
 };
 
