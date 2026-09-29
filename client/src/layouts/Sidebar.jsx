@@ -1,15 +1,19 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Briefcase, Brain, BrainCircuit, BarChart3, X } from 'lucide-react';
+import { LayoutDashboard, Briefcase, Brain, BrainCircuit, BarChart3, Building2, Users, Activity, Settings, X } from 'lucide-react';
 
 const Sidebar = ({ isOpen, closeSidebar }) => {
   const navItems = [
     { name: 'Dashboard', path: '/', icon: LayoutDashboard },
     { name: 'Learning Demo', path: '/impact', icon: BrainCircuit },
     { name: 'Deals', path: '/deals', icon: Briefcase },
+    { name: 'Companies', path: '/companies', icon: Building2 },
+    { name: 'Contacts', path: '/contacts', icon: Users },
+    { name: 'Activities', path: '/activities', icon: Activity },
     { name: 'AI Assistant', path: '/ai-assistant', icon: Brain },
     { name: 'Memory', path: '/memory', icon: BrainCircuit },
-    { name: 'Analytics', path: '/analytics', icon: BarChart3 }
+    { name: 'Analytics', path: '/analytics', icon: BarChart3 },
+    { name: 'Settings', path: '/settings', icon: Settings }
   ];
 
   return (

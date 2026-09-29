@@ -8,6 +8,11 @@ import Memory from './pages/Memory';
 import AIAssistant from './pages/AIAssistant';
 import Analytics from './pages/Analytics';
 import MemoryImpact from './pages/MemoryImpact';
+import Companies from './pages/Companies';
+import Contacts from './pages/Contacts';
+import Activities from './pages/Activities';
+import Settings from './pages/Settings';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -17,11 +22,15 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="deals" element={<Deals />} />
           <Route path="deals/:id" element={<DealDetails />} />
+          <Route path="companies" element={<Companies />} />
+          <Route path="contacts" element={<Contacts />} />
+          <Route path="activities" element={<Activities />} />
           <Route path="impact" element={<MemoryImpact />} />
           <Route path="memory" element={<Memory />} />
           <Route path="ai-assistant" element={<AIAssistant />} />
           <Route path="analytics" element={<Analytics />} />
-          <Route path="*" element={<div className="p-4">Page not found or under construction.</div>} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
