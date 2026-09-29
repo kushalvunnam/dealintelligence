@@ -54,10 +54,10 @@ export default function DealDetails() {
     }
   };
 
+  const [showMemories, setShowMemories] = useState(false);
+
   if (loading) return <div className="p-8 text-slate-500 flex items-center gap-2"><Loader2 className="animate-spin"/> Loading deal details...</div>;
   if (!deal) return <div className="p-8">Deal not found.</div>;
-
-  const [showMemories, setShowMemories] = useState(false);
 
   const renderMemorySources = (memories) => {
     if (!memories || memories.length === 0) return null;
