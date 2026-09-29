@@ -250,6 +250,35 @@ router.get('/memories', async (req, res) => {
 });
 
 // ==========================================
+// COMPANY ROUTES
+// ==========================================
+// Note: Companies are currently derived from the Deal model's 'company' string field.
+// This endpoint updates the company name across all associated records to maintain consistency.
+router.put('/companies/:oldName', async (req, res) => {
+  try {
+    const { name } = req.body;
+    if (!name || !name.trim()) {
+      return res.status(400).json({ error: 'Company name is required' });
+    }
+    
+    const oldName = req.params.oldName;
+    
+    // Update all deals associated with this company
+    await Deal.updateMany({ company: oldName }, { company: name });
+    
+    // Update all contacts associated with this company
+    const Contact = require('../models/Contact');
+    if (Contact) {
+      await Contact.updateMany({ company: oldName }, { company: name });
+    }
+    
+    res.json({ success: true, message: 'Company updated successfully', newName: name });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ==========================================
 // CONTACT ROUTES
 // ==========================================
 const Contact = require('../models/Contact');

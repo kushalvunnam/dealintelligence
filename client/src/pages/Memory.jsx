@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { getAllMemories } from '../services/api';
-import { BrainCircuit, Link, Sparkles, Search, Filter, X, CheckCircle2 } from 'lucide-react';
+import { getAllMemories, getDeals } from '../services/api';
+import { BrainCircuit, Link, Sparkles, Search, Filter, X, CheckCircle2, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Memory() {
   const [memories, setMemories] = useState([]);
+  const [deals, setDeals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('All');
+  const [selectedDealFilter, setSelectedDealFilter] = useState('All Deals');
   const [selectedMemory, setSelectedMemory] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getAllMemories().then(data => {
-      setMemories(data);
+    Promise.all([getAllMemories(), getDeals()]).then(([memoriesData, dealsData]) => {
+      setMemories(memoriesData);
+      setDeals(dealsData);
       setLoading(false);
     }).catch(console.error);
   }, []);
@@ -32,10 +35,12 @@ export default function Memory() {
     const matchesSearch = (m.content?.toLowerCase() || '').includes(searchTerm.toLowerCase()) || 
                           (m.dealId?.company?.toLowerCase() || '').includes(searchTerm.toLowerCase());
     const matchesType = filterType === 'All' || m.type === filterType;
-    return matchesSearch && matchesType;
+    const matchesDeal = selectedDealFilter === 'All Deals' || m.dealId?.company === selectedDealFilter;
+    return matchesSearch && matchesType && matchesDeal;
   });
 
   const filterOptions = ['All', 'Meetings', 'Objection', 'Competitor', 'Pricing', 'Stakeholder'];
+  const uniqueCompanies = ['All Deals', ...new Set(deals.map(d => d.company).filter(Boolean))];
 
   if (loading) return <div className="p-8 text-slate-500">Loading memory banks...</div>;
 
@@ -70,7 +75,21 @@ export default function Memory() {
         
         {/* Filter and Search */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 items-center">
+            {/* Deal Filter Dropdown */}
+            <div className="relative mr-2">
+              <select 
+                value={selectedDealFilter}
+                onChange={(e) => setSelectedDealFilter(e.target.value)}
+                className="appearance-none pl-4 pr-10 py-1.5 bg-slate-100 border border-slate-200 text-slate-700 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer"
+              >
+                {uniqueCompanies.map(c => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
+            </div>
+
             {filterOptions.map(opt => (
               <button
                 key={opt}

@@ -117,4 +117,10 @@ export const deleteContact = async (id) => {
   return response.data;
 };
 
+// Company API
+export const updateCompany = async (oldName, companyData) => {
+  const response = await api.put(`/companies/${encodeURIComponent(oldName)}`, companyData);
+  return response.data;
+};
+
 export default api;
