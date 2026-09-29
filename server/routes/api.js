@@ -18,6 +18,24 @@ router.get('/deals', async (req, res) => {
   }
 });
 
+// POST new deal (used for adding companies directly)
+router.post('/deals', async (req, res) => {
+  try {
+    const newDeal = new Deal({
+      name: req.body.name || 'New Deal',
+      company: req.body.company,
+      stage: req.body.stage || 'Lead',
+      value: req.body.value || 0,
+      probability: req.body.probability || 10,
+      notes: req.body.notes || ''
+    });
+    await newDeal.save();
+    res.status(201).json(newDeal);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // GET deal by ID
 router.get('/deals/:id', async (req, res) => {
   try {

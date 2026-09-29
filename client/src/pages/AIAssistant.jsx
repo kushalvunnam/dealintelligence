@@ -133,10 +133,10 @@ export default function AIAssistant() {
             {/* Messages */}
             {messages.map((msg, idx) => (
               <div key={idx} className={`flex gap-4 max-w-4xl ${msg.role === 'ai' ? 'mr-auto' : 'ml-auto flex-row-reverse'}`}>
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'ai' ? 'bg-gradient-to-br from-brand-400 to-brand-600 text-slate-900 shadow-md' : 'bg-brand-500 text-slate-900'}`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'ai' ? 'bg-[#0F766E] text-white shadow-md' : 'bg-[#0F172A] text-white'}`}>
                   {msg.role === 'ai' ? <BrainCircuit size={16} /> : <User size={16} />}
                 </div>
-                <div className={`p-4 rounded-2xl ${msg.role === 'ai' ? 'bg-white border border-slate-200 rounded-xl shadow-sm border border-slate-200 text-slate-900 shadow-sm' : 'bg-brand-600 text-slate-900 shadow-sm'}`}>
+                <div className={`p-4 rounded-2xl ${msg.role === 'ai' ? 'bg-white border border-slate-200 rounded-xl shadow-sm border border-slate-200 text-slate-900 shadow-sm' : 'bg-[#E6FFFA] border border-[#319795] text-[#0F172A] shadow-sm'}`}>
                   <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
                   {msg.role === 'ai' && renderMemorySources(msg.memoriesUsed)}
                 </div>
@@ -145,7 +145,7 @@ export default function AIAssistant() {
             
             {loading && (
               <div className="flex gap-4 max-w-4xl">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-slate-900 flex items-center justify-center shrink-0 shadow-md">
+                <div className="w-8 h-8 rounded-full bg-[#0F766E] text-white flex items-center justify-center shrink-0 shadow-md">
                   <BrainCircuit size={16} />
                 </div>
                 <div className="p-4 rounded-2xl bg-white border border-slate-200 rounded-xl shadow-sm border border-slate-200 text-slate-500 italic flex items-center gap-2 shadow-sm">
@@ -181,6 +181,7 @@ export default function AIAssistant() {
     </div>
   );
 }
+
 
 
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getDeals, updateCompany } from '../services/api';
-import { Building2, MapPin, Globe, Edit2, X, AlertCircle, Activity, ChevronRight } from 'lucide-react';
+import { getDeals, updateCompany, createDeal } from '../services/api';
+import { Building2, MapPin, Globe, Edit2, X, AlertCircle, Activity, ChevronRight, Plus } from 'lucide-react';
 
 export default function Companies() {
   const [deals, setDeals] = useState([]);
@@ -13,6 +13,11 @@ export default function Companies() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingCompany, setEditingCompany] = useState(null);
   const [companyName, setCompanyName] = useState('');
+  
+  // Add Modal State
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [newCompanyName, setNewCompanyName] = useState('');
+
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState(null);
 
@@ -65,6 +70,29 @@ export default function Companies() {
     }
   };
 
+  const handleAddCompany = async (e) => {
+    e.preventDefault();
+    if (!newCompanyName.trim()) {
+      setSaveError('Company Name is required');
+      return;
+    }
+
+    setIsSaving(true);
+    setSaveError(null);
+    try {
+      // Create a dummy deal to register the company
+      await createDeal({ company: newCompanyName.trim(), name: 'General Deal', stage: 'Lead', value: 0 });
+      fetchDeals();
+      setIsAddModalOpen(false);
+      setNewCompanyName('');
+    } catch (err) {
+      console.error(err);
+      setSaveError(err.message || 'Failed to add company');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   if (loading) return (
     <div className="max-w-[1400px] mx-auto space-y-6">
       <div className="h-10 w-48 bg-slate-200 rounded-xl animate-pulse"></div>
@@ -101,6 +129,12 @@ export default function Companies() {
         <h1 className="text-[32px] font-bold text-slate-900 tracking-tight">
           Companies
         </h1>
+        <button 
+          onClick={() => { setSaveError(null); setNewCompanyName(''); setIsAddModalOpen(true); }}
+          className="btn-primary flex items-center gap-2"
+        >
+          <Plus size={18} /> Add Company
+        </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -193,6 +227,58 @@ export default function Companies() {
                   className="btn-primary"
                 >
                   {isSaving ? 'Saving...' : 'Save Profile'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      {/* Premium Add Company Modal */}
+      {isAddModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white border border-slate-200 rounded-xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="flex justify-between items-center p-5 border-b border-slate-100 bg-slate-50">
+              <h3 className="font-bold text-[18px] text-slate-900 flex items-center gap-2">
+                <Building2 className="text-brand-700 w-5 h-5" /> Add New Company
+              </h3>
+              <button onClick={() => setIsAddModalOpen(false)} className="text-slate-400 hover:text-slate-700 hover:bg-slate-200 p-1.5 rounded-lg transition-colors">
+                <X size={18} />
+              </button>
+            </div>
+            
+            <form onSubmit={handleAddCompany} className="p-6 space-y-6">
+              {saveError && (
+                <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm font-medium flex items-center gap-2">
+                  <AlertCircle size={16} /> {saveError}
+                </div>
+              )}
+              
+              <div>
+                <label className="block text-[14px] font-semibold text-slate-700 mb-2">Company Name</label>
+                <input 
+                  type="text" 
+                  value={newCompanyName}
+                  onChange={(e) => setNewCompanyName(e.target.value)}
+                  className="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-shadow"
+                  placeholder="Enter new company name"
+                  autoFocus
+                />
+              </div>
+
+              <div className="flex justify-end gap-3 pt-4 border-t border-slate-100 mt-6">
+                <button 
+                  type="button"
+                  onClick={() => setIsAddModalOpen(false)}
+                  className="btn-secondary"
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit"
+                  disabled={isSaving || !newCompanyName.trim()}
+                  className="btn-primary"
+                >
+                  {isSaving ? 'Adding...' : 'Add Company'}
                 </button>
               </div>
             </form>

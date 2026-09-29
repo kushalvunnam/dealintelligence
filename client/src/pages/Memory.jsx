@@ -63,11 +63,11 @@ export default function Memory() {
         </div>
         <div className="clean-card p-6 rounded-xl border border-slate-200 shadow-sm">
           <p className="text-sm font-medium text-slate-500 mb-1">Deals Tracked</p>
-          <p className="text-3xl font-bold text-slate-900">{new Set(memories.map(m => m.dealId?._id)).size}</p>
+          <p className="text-3xl font-bold text-slate-900">{deals.length}</p>
         </div>
-        <div className="bg-gradient-to-r from-brand-600 to-brand-800 p-6 rounded-xl shadow-sm text-slate-900 flex flex-col justify-center">
+        <div className="clean-card p-6 flex flex-col justify-center">
           <p className="font-medium mb-1 flex items-center gap-2"><Sparkles size={16}/> AI Learning Status</p>
-          <p className="text-sm opacity-90">Continuously extracting objections, pricing sensitivity, and competitor mentions.</p>
+          <p className="text-sm text-slate-500">Continuously extracting objections, pricing sensitivity, and competitor mentions.</p>
         </div>
       </div>
 
@@ -221,5 +221,6 @@ export default function Memory() {
     </div>
   );
 }
+
 
 

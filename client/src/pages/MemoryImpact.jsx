@@ -70,15 +70,15 @@ export default function MemoryImpact() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex justify-between items-center bg-slate-900 text-slate-900 p-8 rounded-xl shadow-lg relative overflow-hidden">
+      <div className="flex justify-between items-center bg-[#0F172A] p-8 rounded-xl shadow-lg relative overflow-hidden">
         <div className="absolute top-0 right-0 opacity-10">
           <BrainCircuit size={240} className="transform translate-x-12 -translate-y-12" />
         </div>
         <div className="relative z-10 max-w-2xl">
-          <h1 className="text-3xl font-bold flex items-center gap-3">
+          <h1 className="text-[32px] font-bold text-white flex items-center gap-3">
             <Sparkles className="text-brand-400" /> How DealMind Learns
           </h1>
-          <p className="text-slate-700 mt-2 text-lg">
+          <p className="text-[#CBD5E1] mt-2 text-[18px] leading-[1.6]">
             See the exact difference Hindsight makes. We'll run the same AI prompt with and without persistent memory.
           </p>
         </div>
@@ -86,7 +86,7 @@ export default function MemoryImpact() {
           {demoState === 'idle' && (
             <button 
               onClick={runDemo}
-              className="bg-brand-500 hover:bg-brand-400 text-slate-900 px-6 py-3 rounded-xl font-bold transition-colors flex items-center gap-2 shadow-lg shadow-brand-500/20"
+              className="bg-[#14B8A6] hover:bg-[#0F766E] text-white px-6 py-3 rounded-xl font-bold transition-colors flex items-center gap-2 shadow-lg shadow-brand-500/20"
             >
               <Play fill="currentColor" size={20} /> Start Learning Demo
             </button>
@@ -96,11 +96,11 @@ export default function MemoryImpact() {
 
       {demoState === 'loading' && (
         <div className="clean-card p-8 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center justify-center min-h-[400px]">
-          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mb-8" />
+          <Loader2 className="w-12 h-12 text-brand-700 animate-spin mb-8" />
           <div className="space-y-4 w-full max-w-md">
             {loadingSteps.map((step, i) => (
-              <div key={i} className="flex items-center gap-3 text-lg font-medium text-slate-700 animate-in fade-in slide-in-from-bottom-2">
-                {step.startsWith('✓') ? <CheckCircle2 className="text-green-500 shrink-0" /> : <Activity className="text-brand-500 shrink-0" />}
+              <div key={i} className="flex items-center gap-3 text-lg font-medium text-slate-900 animate-in fade-in slide-in-from-bottom-2">
+                {step.startsWith('✓') ? <CheckCircle2 className="text-green-600 shrink-0" /> : <Activity className="text-brand-700 shrink-0" />}
                 {step.replace('✓ ', '')}
               </div>
             ))}
@@ -213,8 +213,8 @@ export default function MemoryImpact() {
                   <p className="text-xs text-brand-400 mt-1">Prompt: "Prepare me for ABC Motors" + 10 Historical Interactions</p>
                 </div>
                 <div className="p-6 space-y-6">
-                  <div className="bg-brand-900 text-slate-900 p-4 rounded-lg">
-                    <h4 className="text-xs font-bold text-brand-300 uppercase tracking-wider mb-1">Personalized Recommendation</h4>
+                  <div className="bg-brand-50 text-slate-900 p-4 rounded-lg">
+                    <h4 className="text-xs font-bold text-brand-700 uppercase tracking-wider mb-1">Personalized Recommendation</h4>
                     <p className="font-medium text-lg leading-snug">{compareData.personalized.recommendedNextAction}</p>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
@@ -261,5 +261,7 @@ export default function MemoryImpact() {
     </div>
   );
 }
+
+
 
 

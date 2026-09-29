@@ -270,28 +270,28 @@ export default function DealDetails() {
                 <button 
                   onClick={() => handleAiAction(prepareMeeting, 'meeting')}
                   disabled={aiLoading}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${aiView === 'meeting' ? 'bg-brand-600 text-slate-900 border-brand-600 shadow-sm' : 'clean-card text-brand-300 border-brand-500/30 hover:bg-brand-100'} disabled:opacity-50`}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${aiView === 'meeting' ? 'bg-[#0F766E] text-white border-[#0F766E] shadow-sm' : 'bg-white text-slate-600 border-slate-200 hover:bg-brand-100'} disabled:opacity-50`}
                 >
                   Prepare Meeting
                 </button>
                 <button 
                   onClick={() => handleAiAction(analyzeObjections, 'objections')}
                   disabled={aiLoading}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${aiView === 'objections' ? 'bg-red-600 text-slate-900 border-red-600 shadow-sm' : 'clean-card text-red-700 border-red-200 hover:bg-red-50'} disabled:opacity-50`}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${aiView === 'objections' ? 'bg-red-600 text-white border-red-600 shadow-sm' : 'bg-white text-slate-600 border-slate-200 hover:bg-red-50'} disabled:opacity-50`}
                 >
                   Analyze Objections
                 </button>
                 <button 
                   onClick={() => handleAiAction(analyzeCompetitors, 'competitors')}
                   disabled={aiLoading}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${aiView === 'competitors' ? 'bg-orange-500 text-slate-900 border-orange-500 shadow-sm' : 'clean-card text-orange-700 border-orange-200 hover:bg-orange-50'} disabled:opacity-50`}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${aiView === 'competitors' ? 'bg-orange-600 text-white border-orange-600 shadow-sm' : 'bg-white text-slate-600 border-slate-200 hover:bg-orange-50'} disabled:opacity-50`}
                 >
                   Analyze Competitors
                 </button>
                 <button 
                   onClick={() => handleAiAction(generateNextActions, 'actions')}
                   disabled={aiLoading}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${aiView === 'actions' ? 'bg-green-600 text-slate-900 border-green-600 shadow-sm' : 'clean-card text-green-700 border-green-200 hover:bg-green-50'} disabled:opacity-50`}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${aiView === 'actions' ? 'bg-green-600 text-white border-green-600 shadow-sm' : 'bg-white text-slate-600 border-slate-200 hover:bg-green-50'} disabled:opacity-50`}
                 >
                   Suggest Next Actions
                 </button>
@@ -352,5 +352,6 @@ export default function DealDetails() {
     </div>
   );
 }
+
 
 

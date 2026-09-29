@@ -29,6 +29,13 @@ export const getDeals = async () => {
   return response.data;
 };
 
+export const createDeal = async (dealData) => {
+  const response = await api.post('/deals', dealData);
+  // Invalidate deals cache
+  cache.deals.timestamp = 0;
+  return response.data;
+};
+
 export const getDealById = async (id) => {
   const response = await api.get(`/deals/${id}`);
   return response.data;
