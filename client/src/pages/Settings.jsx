@@ -4,6 +4,15 @@ import api from '../services/api';
 
 export default function Settings() {
   const [apiStatus, setApiStatus] = useState('checking');
+  const [isEditing, setIsEditing] = useState(false);
+  const [profile, setProfile] = useState(() => {
+    const saved = localStorage.getItem('dealmind_profile');
+    return saved ? JSON.parse(saved) : {
+      name: 'Alex Rep',
+      email: 'alex@dealmind.ai',
+      role: 'Sales Representative'
+    };
+  });
 
   useEffect(() => {
     // Check if backend is reachable
@@ -11,6 +20,11 @@ export default function Settings() {
       .then(() => setApiStatus('connected'))
       .catch(() => setApiStatus('disconnected'));
   }, []);
+
+  const handleSave = () => {
+    localStorage.setItem('dealmind_profile', JSON.stringify(profile));
+    setIsEditing(false);
+  };
 
   return (
     <div className="space-y-6 max-w-4xl">
@@ -25,22 +39,57 @@ export default function Settings() {
         {/* Profile Settings */}
         <div className="col-span-1 md:col-span-2 space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div className="p-6 border-b border-slate-100 flex items-center gap-3">
-              <User className="text-slate-400" />
-              <h2 className="text-lg font-semibold text-slate-900">Account Profile</h2>
+            <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <User className="text-slate-400" />
+                <h2 className="text-lg font-semibold text-slate-900">Account Profile</h2>
+              </div>
+              {isEditing ? (
+                <button 
+                  onClick={handleSave}
+                  className="px-4 py-1.5 bg-brand-500 hover:bg-brand-600 text-white rounded-lg text-sm font-medium transition-colors"
+                >
+                  Save Changes
+                </button>
+              ) : (
+                <button 
+                  onClick={() => setIsEditing(true)}
+                  className="px-4 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-medium transition-colors"
+                >
+                  Edit Profile
+                </button>
+              )}
             </div>
             <div className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
-                <input type="text" disabled value="Alex Rep" className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-500" />
+                <input 
+                  type="text" 
+                  disabled={!isEditing}
+                  value={profile.name}
+                  onChange={(e) => setProfile({...profile, name: e.target.value})}
+                  className={`w-full px-4 py-2 border rounded-lg ${isEditing ? 'bg-white border-brand-300 focus:ring-2 focus:ring-brand-500 outline-none text-slate-900' : 'bg-slate-50 border-slate-200 text-slate-500'}`} 
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-                <input type="email" disabled value="alex@dealmind.ai" className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-500" />
+                <input 
+                  type="email" 
+                  disabled={!isEditing}
+                  value={profile.email}
+                  onChange={(e) => setProfile({...profile, email: e.target.value})}
+                  className={`w-full px-4 py-2 border rounded-lg ${isEditing ? 'bg-white border-brand-300 focus:ring-2 focus:ring-brand-500 outline-none text-slate-900' : 'bg-slate-50 border-slate-200 text-slate-500'}`} 
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Role</label>
-                <input type="text" disabled value="Sales Representative" className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-500" />
+                <input 
+                  type="text" 
+                  disabled={!isEditing}
+                  value={profile.role}
+                  onChange={(e) => setProfile({...profile, role: e.target.value})}
+                  className={`w-full px-4 py-2 border rounded-lg ${isEditing ? 'bg-white border-brand-300 focus:ring-2 focus:ring-brand-500 outline-none text-slate-900' : 'bg-slate-50 border-slate-200 text-slate-500'}`} 
+                />
               </div>
             </div>
           </div>
