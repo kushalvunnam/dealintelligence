@@ -55,6 +55,9 @@ class HindsightService {
       return response.results || [];
     } catch (err) {
       console.error("[Hindsight] Failed to recall memory:", err.message);
+      if (err.message && err.message.includes("not found")) {
+        return [];
+      }
       throw err;
     }
   }

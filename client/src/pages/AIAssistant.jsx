@@ -45,7 +45,8 @@ export default function AIAssistant() {
         memoriesUsed: response.memoriesUsed 
       }]);
     } catch (err) {
-      setMessages(prev => [...prev, { role: 'ai', content: 'Sorry, I encountered an error connecting to the LLM or Hindsight.' }]);
+      const errorMessage = err.response?.data?.error || err.message || 'Unknown error';
+      setMessages(prev => [...prev, { role: 'ai', content: `AI request failed: ${errorMessage}` }]);
     } finally {
       setLoading(false);
     }

@@ -12,7 +12,7 @@ class AIService {
 
     if (apiKey) {
       this.client = new OpenAI({ apiKey, baseURL });
-      this.model = process.env.GROQ_API_KEY ? 'llama-3.1-8b-instant' : 'gpt-4o-mini';
+      this.model = process.env.GROQ_API_KEY ? 'qwen/qwen3.8-27b' : 'gpt-4o-mini';
     } else {
       this.client = null;
     }
@@ -35,6 +35,7 @@ class AIService {
     try {
       const response = await this.client.chat.completions.create({
         model: this.model,
+        max_tokens: 800,
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt }
@@ -68,6 +69,7 @@ ${formattedMemories}
     try {
       const response = await this.client.chat.completions.create({
         model: this.model,
+        max_tokens: 800,
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: message }

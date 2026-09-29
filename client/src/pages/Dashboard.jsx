@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getDeals } from '../services/api';
 import { BrainCircuit, TrendingUp, Calendar, AlertCircle } from 'lucide-react';
 
 export default function Dashboard() {
   const [deals, setDeals] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getDeals().then(data => {
@@ -14,6 +16,9 @@ export default function Dashboard() {
   }, []);
 
   const totalValue = deals.reduce((sum, d) => sum + d.value, 0);
+  
+  // Find ABC Motors for the Insight Card navigation
+  const abcDeal = deals.find(d => d.company === 'ABC Motors');
 
   if (loading) return <div>Loading dashboard...</div>;
 
@@ -82,7 +87,10 @@ export default function Dashboard() {
             <p className="text-sm text-brand-100 uppercase tracking-wider font-semibold mb-1">Recommended Action</p>
             <p>Prepare a value-based pricing response before the next meeting to emphasize ROI over absolute cost.</p>
           </div>
-          <button className="mt-6 bg-white text-brand-900 px-6 py-2 rounded-lg font-medium hover:bg-slate-50 transition-colors">
+          <button 
+            onClick={() => { if(abcDeal) navigate(`/deals/${abcDeal._id}`) }}
+            className="mt-6 bg-white text-brand-900 px-6 py-2 rounded-lg font-medium hover:bg-slate-50 transition-colors"
+          >
             View Deal Intelligence
           </button>
         </div>
@@ -91,8 +99,8 @@ export default function Dashboard() {
       {/* Pipeline */}
       <div>
         <h2 className="text-xl font-bold text-slate-900 mb-4">Pipeline by Stage</h2>
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-          <table className="w-full text-left border-collapse">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden overflow-x-auto">
+          <table className="w-full text-left border-collapse min-w-[600px]">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-sm text-slate-500 uppercase tracking-wider">
                 <th className="px-6 py-4 font-medium">Company</th>
@@ -103,7 +111,11 @@ export default function Dashboard() {
             </thead>
             <tbody className="divide-y divide-slate-200">
               {deals.map((deal) => (
-                <tr key={deal._id} className="hover:bg-slate-50 transition-colors">
+                <tr 
+                  key={deal._id} 
+                  onClick={() => navigate(`/deals/${deal._id}`)}
+                  className="hover:bg-slate-50 transition-colors cursor-pointer"
+                >
                   <td className="px-6 py-4 font-medium text-slate-900">{deal.company}</td>
                   <td className="px-6 py-4 text-slate-600">{deal.name}</td>
                   <td className="px-6 py-4">

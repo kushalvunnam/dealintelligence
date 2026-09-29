@@ -247,6 +247,9 @@ export default function DealDetails() {
     <div className="space-y-8">
       {/* Header */}
       <div>
+        <button onClick={() => window.history.back()} className="text-slate-500 hover:text-brand-600 font-medium text-sm mb-4 flex items-center gap-1 transition-colors">
+          ← Back to Deals
+        </button>
         <h1 className="text-3xl font-bold text-slate-900">{deal.company}</h1>
         <p className="text-xl text-slate-500 mt-1">{deal.name} • ₹{deal.value.toLocaleString('en-IN')}</p>
       </div>
