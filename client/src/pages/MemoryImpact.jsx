@@ -52,7 +52,9 @@ export default function MemoryImpact() {
 
     } catch (err) {
       console.error(err);
-      addStep('❌ Demo failed: ' + err.message, 0);
+      const errorMessage = err.response?.data?.error || err.message;
+      setLoadingSteps(prev => [...prev, '❌ Demo failed: ' + errorMessage]);
+      setTimeout(() => setDemoState('idle'), 4000);
     }
   };
 
