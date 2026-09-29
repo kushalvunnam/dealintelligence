@@ -7,10 +7,21 @@ export default function Dashboard() {
   const [deals, setDeals] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
   const [error, setError] = useState(null);
+  const [firstName, setFirstName] = useState('Alex');
 
   useEffect(() => {
+    const loadName = () => {
+      const saved = localStorage.getItem('dealmind_profile');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.name) setFirstName(parsed.name.split(' ')[0]);
+      }
+    };
+    
+    loadName();
+    window.addEventListener('profileUpdated', loadName);
+
     getDeals().then(data => {
       setDeals(data);
     }).catch(err => {
@@ -19,6 +30,8 @@ export default function Dashboard() {
     }).finally(() => {
       setLoading(false);
     });
+
+    return () => window.removeEventListener('profileUpdated', loadName);
   }, []);
 
   const safeDeals = Array.isArray(deals) ? deals : [];
@@ -34,7 +47,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-3xl font-bold text-slate-900">Good morning, Alex</h1>
+        <h1 className="text-3xl font-bold text-slate-900">Good morning, {firstName}</h1>
         <p className="text-slate-500 mt-1">Here's what is happening across your pipeline.</p>
       </header>
 

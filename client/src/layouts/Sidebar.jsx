@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { LayoutDashboard, Briefcase, Brain, BrainCircuit, BarChart3, Building2, Users, Activity, Settings, X } from 'lucide-react';
 
 const Sidebar = ({ isOpen, closeSidebar }) => {
+  const [profile, setProfile] = useState({
+    name: 'Alex Rep',
+    email: 'alex@dealmind.ai'
+  });
+
+  useEffect(() => {
+    const loadProfile = () => {
+      const saved = localStorage.getItem('dealmind_profile');
+      if (saved) {
+        setProfile(JSON.parse(saved));
+      }
+    };
+    
+    // Initial load
+    loadProfile();
+
+    // Listen for updates from Settings page
+    window.addEventListener('profileUpdated', loadProfile);
+    return () => window.removeEventListener('profileUpdated', loadProfile);
+  }, []);
+
   const navItems = [
     { name: 'Dashboard', path: '/', icon: LayoutDashboard },
     { name: 'Learning Demo', path: '/impact', icon: BrainCircuit },
@@ -56,12 +77,12 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
         </nav>
         <div className="p-4 border-t border-slate-800">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-sm font-bold">
-              A
+            <div className="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-sm font-bold uppercase">
+              {profile.name.charAt(0)}
             </div>
-            <div>
-              <p className="text-sm font-medium">Alex Rep</p>
-              <p className="text-xs text-slate-400">alex@dealmind.ai</p>
+            <div className="overflow-hidden">
+              <p className="text-sm font-medium truncate" title={profile.name}>{profile.name}</p>
+              <p className="text-xs text-slate-400 truncate" title={profile.email}>{profile.email}</p>
             </div>
           </div>
         </div>

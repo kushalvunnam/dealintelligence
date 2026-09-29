@@ -24,6 +24,7 @@ export default function Settings() {
   const handleSave = () => {
     localStorage.setItem('dealmind_profile', JSON.stringify(profile));
     setIsEditing(false);
+    window.dispatchEvent(new Event('profileUpdated'));
   };
 
   return (
