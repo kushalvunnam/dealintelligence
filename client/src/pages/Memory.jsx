@@ -42,36 +42,36 @@ export default function Memory() {
   const filterOptions = ['All', 'Meetings', 'Objection', 'Competitor', 'Pricing', 'Stakeholder'];
   const uniqueCompanies = ['All Deals', ...new Set(deals.map(d => d.company).filter(Boolean))];
 
-  if (loading) return <div className="p-8 text-slate-400">Loading memory banks...</div>;
+  if (loading) return <div className="p-8 text-slate-500">Loading memory banks...</div>;
 
   return (
     <div className="space-y-8 relative">
       <div className="flex items-center gap-3">
-        <div className="p-3 bg-brand-500/30 text-brand-400 rounded-xl">
+        <div className="p-3 bg-brand-100 text-brand-400 rounded-xl">
           <BrainCircuit size={32} />
         </div>
         <div>
-          <h1 className="text-3xl font-bold text-white">Deal Memory</h1>
-          <p className="text-slate-400 mt-1">Persistent intelligence extracted from all interactions.</p>
+          <h1 className="text-3xl font-bold text-slate-900">Deal Memory</h1>
+          <p className="text-slate-500 mt-1">Persistent intelligence extracted from all interactions.</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="glass-panel p-6 rounded-xl border border-white/10 shadow-glass">
-          <p className="text-sm font-medium text-slate-400 mb-1">Total Memories</p>
-          <p className="text-3xl font-bold text-white">{memories.length}</p>
+        <div className="clean-card p-6 rounded-xl border border-slate-200 shadow-sm">
+          <p className="text-sm font-medium text-slate-500 mb-1">Total Memories</p>
+          <p className="text-3xl font-bold text-slate-900">{memories.length}</p>
         </div>
-        <div className="glass-panel p-6 rounded-xl border border-white/10 shadow-glass">
-          <p className="text-sm font-medium text-slate-400 mb-1">Deals Tracked</p>
-          <p className="text-3xl font-bold text-white">{new Set(memories.map(m => m.dealId?._id)).size}</p>
+        <div className="clean-card p-6 rounded-xl border border-slate-200 shadow-sm">
+          <p className="text-sm font-medium text-slate-500 mb-1">Deals Tracked</p>
+          <p className="text-3xl font-bold text-slate-900">{new Set(memories.map(m => m.dealId?._id)).size}</p>
         </div>
-        <div className="bg-gradient-to-r from-brand-600 to-brand-800 p-6 rounded-xl shadow-glass text-white flex flex-col justify-center">
+        <div className="bg-gradient-to-r from-brand-600 to-brand-800 p-6 rounded-xl shadow-sm text-slate-900 flex flex-col justify-center">
           <p className="font-medium mb-1 flex items-center gap-2"><Sparkles size={16}/> AI Learning Status</p>
           <p className="text-sm opacity-90">Continuously extracting objections, pricing sensitivity, and competitor mentions.</p>
         </div>
       </div>
 
-      <div className="glass-panel rounded-xl shadow-glass border border-white/10 p-8">
+      <div className="clean-card rounded-xl shadow-sm border border-slate-200 p-8">
         
         {/* Filter and Search */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
@@ -81,40 +81,40 @@ export default function Memory() {
               <select 
                 value={selectedDealFilter}
                 onChange={(e) => setSelectedDealFilter(e.target.value)}
-                className="appearance-none pl-4 pr-10 py-1.5 bg-white/10 border border-white/10 text-slate-300 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-brand-400 cursor-pointer"
+                className="appearance-none pl-4 pr-10 py-1.5 bg-slate-100 border border-slate-200 text-slate-700 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-brand-400 cursor-pointer"
               >
                 {uniqueCompanies.map(c => (
                   <option key={c} value={c}>{c}</option>
                 ))}
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
             </div>
 
             {filterOptions.map(opt => (
               <button
                 key={opt}
                 onClick={() => setFilterType(opt)}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors border ${filterType === opt ? 'bg-brand-500/200 text-white border-slate-800' : 'glass-panel text-slate-400 border-white/20 hover:bg-white/5'}`}
+                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors border ${filterType === opt ? 'bg-brand-500 text-slate-900 border-slate-800' : 'clean-card text-slate-500 border-slate-300 hover:bg-slate-50'}`}
               >
                 {opt}
               </button>
             ))}
           </div>
           <div className="relative w-full md:w-72">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 w-4 h-4" />
             <input 
               type="text" 
               placeholder="Search memories..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-lg border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent text-sm"
+              className="w-full pl-9 pr-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent text-sm"
             />
           </div>
         </div>
 
         <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 before:to-transparent">
           {filteredMemories.length === 0 && (
-            <div className="text-center text-slate-400 py-12 relative z-10 glass-panel">
+            <div className="text-center text-slate-500 py-12 relative z-10 clean-card">
               No memories match your search criteria.
             </div>
           )}
@@ -122,27 +122,27 @@ export default function Memory() {
           {filteredMemories.map((memory, idx) => (
             <div key={memory._id} className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active`}>
               {/* Icon */}
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-slate-200 text-slate-400 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-slate-200 text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
                 <BrainCircuit size={16} />
               </div>
               
               {/* Card */}
               <div 
                 onClick={() => setSelectedMemory(memory)}
-                className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-white/10 glass-panel shadow-glass hover:shadow-[0_8px_30px_rgba(20,184,166,0.2)] transition-shadow cursor-pointer hover:border-brand-500/50"
+                className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-slate-200 clean-card shadow-sm hover:shadow-md transition-shadow cursor-pointer hover:border-brand-500/50"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className={`text-xs font-bold uppercase px-2 py-1 rounded-md border ${getTypeColor(memory.type)}`}>
                     {memory.type}
                   </span>
-                  <time className="text-xs font-medium text-slate-400">
+                  <time className="text-xs font-medium text-slate-500">
                     {new Date(memory.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                   </time>
                 </div>
-                <div className="mb-2 text-sm font-bold text-slate-200">
+                <div className="mb-2 text-sm font-bold text-slate-900">
                   {memory.dealId?.company || 'Unknown Company'}
                 </div>
-                <div className="text-slate-400 text-sm italic">
+                <div className="text-slate-500 text-sm italic">
                   "{memory.content}"
                 </div>
                 <div className="mt-3 pt-3 border-t border-slate-100 flex items-center gap-1 text-xs text-brand-400 font-medium">
@@ -157,12 +157,12 @@ export default function Memory() {
       {/* Memory Detail Panel (Modal) */}
       {selectedMemory && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="glass-panel rounded-xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
-            <div className="flex justify-between items-center p-4 border-b border-slate-100 bg-white/5">
-              <h3 className="font-bold text-slate-200 flex items-center gap-2">
+          <div className="clean-card rounded-xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="flex justify-between items-center p-4 border-b border-slate-100 bg-slate-50">
+              <h3 className="font-bold text-slate-900 flex items-center gap-2">
                 <BrainCircuit className="text-brand-500" size={18}/> Memory Detail
               </h3>
-              <button onClick={() => setSelectedMemory(null)} className="text-slate-400 hover:text-slate-300">
+              <button onClick={() => setSelectedMemory(null)} className="text-slate-500 hover:text-slate-700">
                 <X size={20} />
               </button>
             </div>
@@ -170,27 +170,27 @@ export default function Memory() {
             <div className="p-6 space-y-6">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Deal</p>
-                  <p className="font-bold text-white cursor-pointer hover:text-brand-400 hover:underline flex items-center gap-1" onClick={() => navigate(`/deals/${selectedMemory.dealId?._id}`)}>
+                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Deal</p>
+                  <p className="font-bold text-slate-900 cursor-pointer hover:text-brand-400 hover:underline flex items-center gap-1" onClick={() => navigate(`/deals/${selectedMemory.dealId?._id}`)}>
                     {selectedMemory.dealId?.company} <Link size={14}/>
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Date</p>
-                  <p className="text-sm font-medium text-slate-300">{new Date(selectedMemory.date).toLocaleDateString()}</p>
+                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Date</p>
+                  <p className="text-sm font-medium text-slate-700">{new Date(selectedMemory.date).toLocaleDateString()}</p>
                 </div>
               </div>
 
               <div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Stored Context</p>
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Stored Context</p>
                 <div className={`p-4 rounded-lg border ${getTypeColor(selectedMemory.type)}`}>
                   <p className="font-medium">"{selectedMemory.content}"</p>
                 </div>
               </div>
 
               <div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">How it was used by AI</p>
-                <div className="space-y-2 text-sm text-slate-300">
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">How it was used by AI</p>
+                <div className="space-y-2 text-sm text-slate-700">
                   <div className="flex items-center gap-2">
                     <CheckCircle2 size={16} className="text-green-500"/> 
                     Meeting preparation & intelligence briefings
@@ -221,4 +221,5 @@ export default function Memory() {
     </div>
   );
 }
+
 
