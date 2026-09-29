@@ -27,13 +27,13 @@ export default function Deals() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-slate-900">Active Deals</h1>
+        <h1 className="text-3xl font-bold text-white">Active Deals</h1>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="glass-panel rounded-xl shadow-glass border border-white/10 overflow-hidden">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-200 text-sm text-slate-500 uppercase tracking-wider">
+            <tr className="bg-white/5 border-b border-white/10 text-sm text-slate-400 uppercase tracking-wider">
               <th className="px-6 py-4 font-medium">Company</th>
               <th className="px-6 py-4 font-medium">Deal Name</th>
               <th className="px-6 py-4 font-medium">Value</th>
@@ -46,19 +46,19 @@ export default function Deals() {
             {deals.map((deal) => (
               <tr 
                 key={deal._id} 
-                className="hover:bg-slate-50 transition-colors cursor-pointer"
+                className="hover:bg-white/5 transition-colors cursor-pointer"
                 onClick={() => navigate(`/deals/${deal._id}`)}
               >
-                <td className="px-6 py-4 font-bold text-slate-900">{deal.company}</td>
-                <td className="px-6 py-4 text-slate-600">{deal.name}</td>
-                <td className="px-6 py-4 font-medium text-slate-900">₹{deal.value.toLocaleString('en-IN')}</td>
+                <td className="px-6 py-4 font-bold text-white">{deal.company}</td>
+                <td className="px-6 py-4 text-slate-400">{deal.name}</td>
+                <td className="px-6 py-4 font-medium text-white">₹{deal.value.toLocaleString('en-IN')}</td>
                 <td className="px-6 py-4">
-                  <span className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full font-medium">
+                  <span className="px-3 py-1 bg-white/10 text-slate-300 text-sm rounded-full font-medium">
                     {deal.stage}
                   </span>
                 </td>
-                <td className="px-6 py-4 text-slate-600">{deal.probability}%</td>
-                <td className="px-6 py-4 text-slate-600">{deal.owner}</td>
+                <td className="px-6 py-4 text-slate-400">{deal.probability}%</td>
+                <td className="px-6 py-4 text-slate-400">{deal.owner}</td>
               </tr>
             ))}
           </tbody>
@@ -67,3 +67,4 @@ export default function Deals() {
     </div>
   );
 }
+

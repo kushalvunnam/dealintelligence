@@ -67,13 +67,13 @@ export default function AIAssistant() {
   const renderMemorySources = (memories) => {
     if (!memories || memories.length === 0) return null;
     return (
-      <div className="mt-4 border-t border-brand-200/50 pt-3">
-        <p className="text-xs font-bold text-brand-700 mb-2 flex items-center gap-1 uppercase tracking-wider">
+      <div className="mt-4 border-t border-brand-500/30/50 pt-3">
+        <p className="text-xs font-bold text-brand-300 mb-2 flex items-center gap-1 uppercase tracking-wider">
           <BrainCircuit size={12}/> Memory Used
         </p>
         <div className="space-y-2">
           {memories.map((m, i) => (
-            <div key={i} className="text-xs bg-brand-50 p-2 rounded border border-brand-100 text-brand-900">
+            <div key={i} className="text-xs bg-brand-500/20 p-2 rounded border border-brand-100 text-brand-900">
               <span className="font-semibold capitalize mr-1">{m.metadata?.interactionType || 'Interaction'}:</span>
               {m.content || m.text}
             </div>
@@ -84,17 +84,17 @@ export default function AIAssistant() {
   };
 
   return (
-    <div className="h-[calc(100vh-6rem)] flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+    <div className="h-[calc(100vh-6rem)] flex flex-col glass-panel rounded-xl shadow-glass border border-white/10 overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b border-slate-200 bg-slate-50 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div className="p-4 border-b border-white/10 bg-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+          <h1 className="text-xl font-bold text-white flex items-center gap-2">
             <Sparkles className="text-brand-500" /> DealMind AI
           </h1>
-          <p className="text-sm text-slate-500 mt-1">Your deal intelligence assistant</p>
+          <p className="text-sm text-slate-400 mt-1">Your deal intelligence assistant</p>
         </div>
         <select 
-          className="px-4 py-2 border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 min-w-[250px]"
+          className="px-4 py-2 border border-white/20 rounded-lg glass-panel focus:outline-none focus:ring-2 focus:ring-brand-400 min-w-[250px]"
           value={selectedDeal}
           onChange={(e) => setSelectedDeal(e.target.value)}
         >
@@ -106,11 +106,11 @@ export default function AIAssistant() {
       </div>
 
       {/* Chat Area */}
-      <div className="flex-1 overflow-y-auto bg-slate-50 relative">
+      <div className="flex-1 overflow-y-auto bg-white/5 relative">
         {!selectedDeal ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 p-8 text-center">
             <MessageSquare size={48} className="mb-4 opacity-20" />
-            <p className="text-lg font-medium text-slate-600">Select a deal to begin</p>
+            <p className="text-lg font-medium text-slate-400">Select a deal to begin</p>
             <p className="text-sm mt-2 max-w-md">The AI needs to know which deal's memory bank to query in Hindsight.</p>
           </div>
         ) : (
@@ -122,7 +122,7 @@ export default function AIAssistant() {
                   <button 
                     key={i}
                     onClick={() => handlePromptClick(prompt)}
-                    className="px-4 py-2 bg-white border border-slate-200 rounded-full text-sm text-brand-700 hover:border-brand-300 hover:bg-brand-50 transition-colors shadow-sm"
+                    className="px-4 py-2 glass-panel border border-white/10 rounded-full text-sm text-brand-300 hover:border-brand-500/50 hover:bg-brand-500/20 transition-colors shadow-glass"
                   >
                     "{prompt}"
                   </button>
@@ -133,10 +133,10 @@ export default function AIAssistant() {
             {/* Messages */}
             {messages.map((msg, idx) => (
               <div key={idx} className={`flex gap-4 max-w-4xl ${msg.role === 'ai' ? 'mr-auto' : 'ml-auto flex-row-reverse'}`}>
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'ai' ? 'bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-md' : 'bg-slate-800 text-white'}`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'ai' ? 'bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-[0_8px_30px_rgba(20,184,166,0.2)]' : 'bg-brand-500/200 text-white'}`}>
                   {msg.role === 'ai' ? <BrainCircuit size={16} /> : <User size={16} />}
                 </div>
-                <div className={`p-4 rounded-2xl ${msg.role === 'ai' ? 'bg-white border border-slate-200 text-slate-800 shadow-sm' : 'bg-brand-600 text-white shadow-sm'}`}>
+                <div className={`p-4 rounded-2xl ${msg.role === 'ai' ? 'glass-panel border border-white/10 text-slate-200 shadow-glass' : 'bg-brand-600 text-white shadow-glass'}`}>
                   <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
                   {msg.role === 'ai' && renderMemorySources(msg.memoriesUsed)}
                 </div>
@@ -145,10 +145,10 @@ export default function AIAssistant() {
             
             {loading && (
               <div className="flex gap-4 max-w-4xl">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-white flex items-center justify-center shrink-0 shadow-md">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-white flex items-center justify-center shrink-0 shadow-[0_8px_30px_rgba(20,184,166,0.2)]">
                   <BrainCircuit size={16} />
                 </div>
-                <div className="p-4 rounded-2xl bg-white border border-slate-200 text-slate-500 italic flex items-center gap-2 shadow-sm">
+                <div className="p-4 rounded-2xl glass-panel border border-white/10 text-slate-400 italic flex items-center gap-2 shadow-glass">
                   <Loader2 className="w-4 h-4 animate-spin text-brand-500" /> Querying Hindsight memory...
                 </div>
               </div>
@@ -159,12 +159,12 @@ export default function AIAssistant() {
       </div>
 
       {/* Input */}
-      <div className="p-4 bg-white border-t border-slate-200">
+      <div className="p-4 glass-panel border-t border-white/10">
         <form onSubmit={handleSend} className="max-w-4xl mx-auto relative">
           <input 
             type="text" 
             placeholder={selectedDeal ? "Ask DealMind AI..." : "Select a deal above to start chatting"}
-            className="w-full pl-4 pr-12 py-3.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 disabled:bg-slate-50 disabled:cursor-not-allowed shadow-sm transition-shadow"
+            className="w-full pl-4 pr-12 py-3.5 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-brand-500 disabled:bg-white/5 disabled:cursor-not-allowed shadow-glass transition-shadow"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={!selectedDeal || loading}
@@ -181,3 +181,4 @@ export default function AIAssistant() {
     </div>
   );
 }
+

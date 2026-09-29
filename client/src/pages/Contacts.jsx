@@ -181,22 +181,22 @@ export default function Contacts() {
     );
   });
 
-  if (loading) return <div className="p-8 text-slate-500">Loading contacts...</div>;
+  if (loading) return <div className="p-8 text-slate-400">Loading contacts...</div>;
   if (error) return (
-    <div className="p-8 text-slate-800">
+    <div className="p-8 text-slate-200">
       <div className="text-red-500 font-bold mb-2">Unable to load contacts.</div>
       <div>{error}</div>
-      <button onClick={fetchData} className="mt-4 px-4 py-2 bg-brand-500 text-white rounded">Retry</button>
+      <button onClick={fetchData} className="mt-4 px-4 py-2 bg-brand-500/200 text-white rounded">Retry</button>
     </div>
   );
 
   return (
     <div className="space-y-6 relative">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h1 className="text-3xl font-bold text-slate-900">Contacts</h1>
+        <h1 className="text-3xl font-bold text-white">Contacts</h1>
         <button 
           onClick={openAddModal}
-          className="flex items-center gap-2 px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-lg font-medium transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-brand-500/200 hover:bg-brand-600 text-white rounded-lg font-medium transition-colors"
         >
           <Plus className="w-5 h-5" />
           Add Contact
@@ -211,37 +211,37 @@ export default function Contacts() {
             placeholder="Search contacts by name, email, or company..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none"
+            className="w-full pl-10 pr-4 py-2 glass-panel border border-white/10 rounded-lg focus:ring-2 focus:ring-brand-400 outline-none"
           />
         </div>
       )}
       
       {contacts.length === 0 ? (
-        <div className="p-12 bg-white rounded-xl shadow-sm border border-slate-200 text-center">
-          <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="p-12 glass-panel rounded-xl shadow-glass border border-white/10 text-center">
+          <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
             <Users className="w-8 h-8 text-slate-400" />
           </div>
-          <h2 className="text-xl font-semibold text-slate-700">No contacts yet</h2>
-          <p className="text-slate-500 mt-2 max-w-md mx-auto mb-6">
+          <h2 className="text-xl font-semibold text-slate-300">No contacts yet</h2>
+          <p className="text-slate-400 mt-2 max-w-md mx-auto mb-6">
             Keep track of all your stakeholders, champions, and decision makers across your deals.
           </p>
           <button 
             onClick={openAddModal}
-            className="flex items-center gap-2 px-4 py-2 bg-brand-50 hover:bg-brand-100 text-brand-600 rounded-lg font-medium transition-colors mx-auto"
+            className="flex items-center gap-2 px-4 py-2 bg-brand-500/20 hover:bg-brand-100 text-brand-400 rounded-lg font-medium transition-colors mx-auto"
           >
             <Plus className="w-5 h-5" />
             Add Contact
           </button>
         </div>
       ) : filteredContacts.length === 0 ? (
-        <div className="p-8 text-center text-slate-500 bg-white rounded-xl border border-slate-200">
+        <div className="p-8 text-center text-slate-400 glass-panel rounded-xl border border-white/10">
           No contacts found matching "{searchQuery}"
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="glass-panel rounded-xl shadow-glass border border-white/10 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left">
-              <thead className="bg-slate-50 border-b border-slate-200 text-sm text-slate-600 font-medium">
+              <thead className="bg-white/5 border-b border-white/10 text-sm text-slate-400 font-medium">
                 <tr>
                   <th className="px-6 py-4">Name</th>
                   <th className="px-6 py-4">Company</th>
@@ -252,19 +252,19 @@ export default function Contacts() {
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {filteredContacts.map(contact => (
-                  <tr key={contact._id} className="hover:bg-slate-50 transition-colors">
+                  <tr key={contact._id} className="hover:bg-white/5 transition-colors">
                     <td className="px-6 py-4">
-                      <div className="font-semibold text-slate-900">{contact.name}</div>
-                      {contact.jobTitle && <div className="text-sm text-slate-500">{contact.jobTitle}</div>}
+                      <div className="font-semibold text-white">{contact.name}</div>
+                      {contact.jobTitle && <div className="text-sm text-slate-400">{contact.jobTitle}</div>}
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex items-center gap-2 text-slate-700">
+                      <div className="flex items-center gap-2 text-slate-300">
                         <Building2 className="w-4 h-4 text-slate-400" />
                         {contact.company}
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex flex-col gap-1 text-sm text-slate-600">
+                      <div className="flex flex-col gap-1 text-sm text-slate-400">
                         {contact.email && (
                           <div className="flex items-center gap-2">
                             <Mail className="w-4 h-4 text-slate-400" />
@@ -280,7 +280,7 @@ export default function Contacts() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="px-2.5 py-1 bg-brand-50 text-brand-700 text-xs font-medium rounded-full">
+                      <span className="px-2.5 py-1 bg-brand-500/20 text-brand-300 text-xs font-medium rounded-full">
                         {contact.contactType}
                       </span>
                     </td>
@@ -288,14 +288,14 @@ export default function Contacts() {
                       <div className="flex items-center justify-end gap-2">
                         <button 
                           onClick={() => openViewModal(contact)}
-                          className="p-2 text-slate-400 hover:text-brand-500 hover:bg-brand-50 rounded-lg transition-colors"
+                          className="p-2 text-slate-400 hover:text-brand-500 hover:bg-brand-500/20 rounded-lg transition-colors"
                           title="View Contact"
                         >
                           <Info className="w-5 h-5" />
                         </button>
                         <button 
                           onClick={() => openEditModal(contact)}
-                          className="p-2 text-slate-400 hover:text-brand-500 hover:bg-brand-50 rounded-lg transition-colors"
+                          className="p-2 text-slate-400 hover:text-brand-500 hover:bg-brand-500/20 rounded-lg transition-colors"
                           title="Edit Contact"
                         >
                           <Edit2 className="w-5 h-5" />
@@ -313,9 +313,9 @@ export default function Contacts() {
       {/* Modal Overlay */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto flex flex-col">
+          <div className="glass-panel rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto flex flex-col">
             <div className="flex items-center justify-between p-6 border-b border-slate-100 shrink-0">
-              <h2 className="text-xl font-bold text-slate-900">
+              <h2 className="text-xl font-bold text-white">
                 {modalMode === 'add' ? 'Add Contact' : modalMode === 'edit' ? 'Edit Contact' : 'Contact Details'}
               </h2>
               <div className="flex items-center gap-2">
@@ -323,7 +323,7 @@ export default function Contacts() {
                   <>
                     <button 
                       onClick={() => setModalMode('edit')}
-                      className="p-2 text-slate-400 hover:text-brand-500 hover:bg-brand-50 rounded-lg transition-colors"
+                      className="p-2 text-slate-400 hover:text-brand-500 hover:bg-brand-500/20 rounded-lg transition-colors"
                     >
                       <Edit2 className="w-5 h-5" />
                     </button>
@@ -336,7 +336,7 @@ export default function Contacts() {
                     </button>
                   </>
                 )}
-                <button onClick={closeModal} className="text-slate-400 hover:text-slate-600">
+                <button onClick={closeModal} className="text-slate-400 hover:text-slate-400">
                   <X className="w-6 h-6" />
                 </button>
               </div>
@@ -345,16 +345,16 @@ export default function Contacts() {
             {modalMode === 'view' && currentContact ? (
               <div className="p-6 space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-16 h-16 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-2xl font-bold">
+                  <div className="w-16 h-16 bg-brand-100 text-brand-400 rounded-full flex items-center justify-center text-2xl font-bold">
                     {currentContact.name.charAt(0)}
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-slate-900">{currentContact.name}</h3>
-                    <p className="text-slate-500 flex items-center gap-2">
+                    <h3 className="text-2xl font-bold text-white">{currentContact.name}</h3>
+                    <p className="text-slate-400 flex items-center gap-2">
                       <Briefcase className="w-4 h-4" /> 
                       {currentContact.jobTitle || 'No Title'} {currentContact.department ? `• ${currentContact.department}` : ''}
                     </p>
-                    <span className="inline-block mt-2 px-2.5 py-1 bg-brand-50 text-brand-700 text-xs font-medium rounded-full">
+                    <span className="inline-block mt-2 px-2.5 py-1 bg-brand-500/20 text-brand-300 text-xs font-medium rounded-full">
                       {currentContact.contactType}
                     </span>
                   </div>
@@ -364,21 +364,21 @@ export default function Contacts() {
                   <div className="space-y-4">
                     <div>
                       <span className="text-xs font-semibold text-slate-400 uppercase">Company</span>
-                      <div className="flex items-center gap-2 mt-1 text-slate-700">
+                      <div className="flex items-center gap-2 mt-1 text-slate-300">
                         <Building2 className="w-4 h-4 text-slate-400" />
                         {currentContact.company}
                       </div>
                     </div>
                     <div>
                       <span className="text-xs font-semibold text-slate-400 uppercase">Email</span>
-                      <div className="flex items-center gap-2 mt-1 text-slate-700">
+                      <div className="flex items-center gap-2 mt-1 text-slate-300">
                         <Mail className="w-4 h-4 text-slate-400" />
                         {currentContact.email || '-'}
                       </div>
                     </div>
                     <div>
                       <span className="text-xs font-semibold text-slate-400 uppercase">Phone</span>
-                      <div className="flex items-center gap-2 mt-1 text-slate-700">
+                      <div className="flex items-center gap-2 mt-1 text-slate-300">
                         <Phone className="w-4 h-4 text-slate-400" />
                         {currentContact.phone || '-'}
                       </div>
@@ -387,14 +387,14 @@ export default function Contacts() {
                   <div className="space-y-4">
                     <div>
                       <span className="text-xs font-semibold text-slate-400 uppercase">Location</span>
-                      <div className="flex items-center gap-2 mt-1 text-slate-700">
+                      <div className="flex items-center gap-2 mt-1 text-slate-300">
                         <MapPin className="w-4 h-4 text-slate-400" />
                         {currentContact.location || '-'}
                       </div>
                     </div>
                     <div>
                       <span className="text-xs font-semibold text-slate-400 uppercase">LinkedIn</span>
-                      <div className="flex items-center gap-2 mt-1 text-slate-700">
+                      <div className="flex items-center gap-2 mt-1 text-slate-300">
                         <Globe className="w-4 h-4 text-slate-400" />
                         {currentContact.linkedin ? (
                           <a href={currentContact.linkedin} target="_blank" rel="noreferrer" className="text-brand-500 hover:underline break-all">
@@ -409,7 +409,7 @@ export default function Contacts() {
                 {currentContact.notes && (
                   <div className="pt-6 border-t border-slate-100">
                     <span className="text-xs font-semibold text-slate-400 uppercase">Notes</span>
-                    <p className="mt-2 text-slate-700 whitespace-pre-wrap">{currentContact.notes}</p>
+                    <p className="mt-2 text-slate-300 whitespace-pre-wrap">{currentContact.notes}</p>
                   </div>
                 )}
                 
@@ -427,23 +427,23 @@ export default function Contacts() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-1">Full Name *</label>
+                      <label className="block text-sm font-medium text-slate-300 mb-1">Full Name *</label>
                       <input 
                         type="text" 
                         value={formData.name}
                         onChange={e => setFormData({...formData, name: e.target.value})}
-                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none ${formErrors.name ? 'border-red-300' : 'border-slate-200'}`}
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-400 outline-none ${formErrors.name ? 'border-red-300' : 'border-white/10'}`}
                       />
                       {formErrors.name && <span className="text-xs text-red-500">{formErrors.name}</span>}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-1">Company *</label>
+                      <label className="block text-sm font-medium text-slate-300 mb-1">Company *</label>
                       <input 
                         type="text" 
                         list="companies-list"
                         value={formData.company}
                         onChange={e => setFormData({...formData, company: e.target.value})}
-                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none ${formErrors.company ? 'border-red-300' : 'border-slate-200'}`}
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-400 outline-none ${formErrors.company ? 'border-red-300' : 'border-white/10'}`}
                       />
                       <datalist id="companies-list">
                         {uniqueCompanies.map(c => <option key={c} value={c} />)}
@@ -454,22 +454,22 @@ export default function Contacts() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                      <label className="block text-sm font-medium text-slate-300 mb-1">Email</label>
                       <input 
                         type="email" 
                         value={formData.email}
                         onChange={e => setFormData({...formData, email: e.target.value})}
-                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none ${formErrors.email ? 'border-red-300' : 'border-slate-200'}`}
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-400 outline-none ${formErrors.email ? 'border-red-300' : 'border-white/10'}`}
                       />
                       {formErrors.email && <span className="text-xs text-red-500">{formErrors.email}</span>}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-1">Phone</label>
+                      <label className="block text-sm font-medium text-slate-300 mb-1">Phone</label>
                       <input 
                         type="tel" 
                         value={formData.phone}
                         onChange={e => setFormData({...formData, phone: e.target.value})}
-                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none ${formErrors.phone ? 'border-red-300' : 'border-slate-200'}`}
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-400 outline-none ${formErrors.phone ? 'border-red-300' : 'border-white/10'}`}
                       />
                       {formErrors.phone && <span className="text-xs text-red-500">{formErrors.phone}</span>}
                     </div>
@@ -477,29 +477,29 @@ export default function Contacts() {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-1">Job Title</label>
+                      <label className="block text-sm font-medium text-slate-300 mb-1">Job Title</label>
                       <input 
                         type="text" 
                         value={formData.jobTitle}
                         onChange={e => setFormData({...formData, jobTitle: e.target.value})}
-                        className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none"
+                        className="w-full px-4 py-2 border border-white/10 rounded-lg focus:ring-2 focus:ring-brand-400 outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-1">Department</label>
+                      <label className="block text-sm font-medium text-slate-300 mb-1">Department</label>
                       <input 
                         type="text" 
                         value={formData.department}
                         onChange={e => setFormData({...formData, department: e.target.value})}
-                        className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none"
+                        className="w-full px-4 py-2 border border-white/10 rounded-lg focus:ring-2 focus:ring-brand-400 outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-1">Contact Type</label>
+                      <label className="block text-sm font-medium text-slate-300 mb-1">Contact Type</label>
                       <select 
                         value={formData.contactType}
                         onChange={e => setFormData({...formData, contactType: e.target.value})}
-                        className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none bg-white"
+                        className="w-full px-4 py-2 border border-white/10 rounded-lg focus:ring-2 focus:ring-brand-400 outline-none glass-panel"
                       >
                         <option value="Decision Maker">Decision Maker</option>
                         <option value="Influencer">Influencer</option>
@@ -513,34 +513,34 @@ export default function Contacts() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-1">LinkedIn URL</label>
+                      <label className="block text-sm font-medium text-slate-300 mb-1">LinkedIn URL</label>
                       <input 
                         type="url" 
                         value={formData.linkedin}
                         onChange={e => setFormData({...formData, linkedin: e.target.value})}
-                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 outline-none ${formErrors.linkedin ? 'border-red-300' : 'border-slate-200'}`}
+                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-400 outline-none ${formErrors.linkedin ? 'border-red-300' : 'border-white/10'}`}
                         placeholder="https://linkedin.com/in/..."
                       />
                       {formErrors.linkedin && <span className="text-xs text-red-500">{formErrors.linkedin}</span>}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-1">Location</label>
+                      <label className="block text-sm font-medium text-slate-300 mb-1">Location</label>
                       <input 
                         type="text" 
                         value={formData.location}
                         onChange={e => setFormData({...formData, location: e.target.value})}
-                        className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none"
+                        className="w-full px-4 py-2 border border-white/10 rounded-lg focus:ring-2 focus:ring-brand-400 outline-none"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Notes</label>
+                    <label className="block text-sm font-medium text-slate-300 mb-1">Notes</label>
                     <textarea 
                       value={formData.notes}
                       onChange={e => setFormData({...formData, notes: e.target.value})}
                       rows={3}
-                      className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none resize-none"
+                      className="w-full px-4 py-2 border border-white/10 rounded-lg focus:ring-2 focus:ring-brand-400 outline-none resize-none"
                     />
                   </div>
 
@@ -548,14 +548,14 @@ export default function Contacts() {
                     <button 
                       type="button"
                       onClick={closeModal}
-                      className="px-6 py-2 text-slate-600 hover:bg-slate-100 rounded-lg font-medium transition-colors"
+                      className="px-6 py-2 text-slate-400 hover:bg-white/10 rounded-lg font-medium transition-colors"
                     >
                       Cancel
                     </button>
                     <button 
                       type="submit"
                       disabled={isSaving}
-                      className="px-6 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-lg font-medium transition-colors disabled:opacity-50"
+                      className="px-6 py-2 bg-brand-500/200 hover:bg-brand-600 text-white rounded-lg font-medium transition-colors disabled:opacity-50"
                     >
                       {isSaving ? 'Saving...' : 'Save Contact'}
                     </button>
@@ -569,3 +569,4 @@ export default function Contacts() {
     </div>
   );
 }
+

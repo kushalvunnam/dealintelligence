@@ -11,9 +11,92 @@
   --color-brand-700: #0f766e;
   --color-brand-800: #115e59;
   --color-brand-900: #134e4a;
+  --color-brand-950: #042f2e;
+
+  --color-navy-500: #334155;
+  --color-navy-600: #1e293b;
+  --color-navy-700: #172033;
+  --color-navy-800: #111827;
+  --color-navy-900: #0B1220;
+  --color-navy-950: #020617;
+  
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  --shadow-neon: 0 0 10px rgba(20, 184, 166, 0.5);
+
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
 }
 
-body {
-  background-color: #f8fafc;
-  color: #0f172a;
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@layer base {
+  body {
+    @apply bg-navy-900 text-slate-200 antialiased selection:bg-brand-500/30 selection:text-brand-100;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-navy-800/60 backdrop-blur-xl border border-white/10 shadow-glass rounded-xl;
+  }
+  
+  .card-3d {
+    @apply bg-navy-700/80 backdrop-blur-lg border border-white/5 rounded-xl transition-all duration-200 ease-out shadow-lg;
+    transform: perspective(1000px) translateZ(0);
+  }
+  
+  .card-3d:hover {
+    @apply border-brand-500/30 shadow-brand-500/20;
+    transform: perspective(1000px) translateZ(10px) translateY(-4px);
+  }
+
+  .pill-filter {
+    @apply px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border border-white/10 bg-navy-800 text-slate-300;
+  }
+
+  .pill-filter:hover {
+    @apply bg-navy-700 text-white transform -translate-y-0.5;
+  }
+
+  .pill-filter.active {
+    @apply bg-gradient-to-r from-brand-600 to-brand-500 text-white border-brand-400 shadow-neon transform -translate-y-0.5;
+  }
+
+  .input-glow {
+    @apply bg-navy-800 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500/50 transition-all;
+  }
+  
+  .orb-3d {
+    background: radial-gradient(circle at 30% 30%, #2dd4bf, #0f766e);
+    box-shadow: 
+      inset -10px -10px 20px rgba(0,0,0,0.5),
+      0 0 20px rgba(20, 184, 166, 0.4);
+    border-radius: 50%;
+  }
+
+  .timeline-gradient {
+    background: linear-gradient(to bottom, transparent, rgba(20, 184, 166, 0.3), transparent);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-navy-900;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-navy-700 rounded-full border-2 border-navy-900;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-navy-600;
 }

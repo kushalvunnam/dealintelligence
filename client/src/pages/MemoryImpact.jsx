@@ -86,7 +86,7 @@ export default function MemoryImpact() {
           {demoState === 'idle' && (
             <button 
               onClick={runDemo}
-              className="bg-brand-500 hover:bg-brand-400 text-white px-6 py-3 rounded-xl font-bold transition-colors flex items-center gap-2 shadow-lg shadow-brand-500/20"
+              className="bg-brand-500/200 hover:bg-brand-400 text-white px-6 py-3 rounded-xl font-bold transition-colors flex items-center gap-2 shadow-lg shadow-brand-500/20"
             >
               <Play fill="currentColor" size={20} /> Start Learning Demo
             </button>
@@ -95,11 +95,11 @@ export default function MemoryImpact() {
       </div>
 
       {demoState === 'loading' && (
-        <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center justify-center min-h-[400px]">
+        <div className="glass-panel p-8 rounded-xl border border-white/10 shadow-glass flex flex-col items-center justify-center min-h-[400px]">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mb-8" />
           <div className="space-y-4 w-full max-w-md">
             {loadingSteps.map((step, i) => (
-              <div key={i} className="flex items-center gap-3 text-lg font-medium text-slate-700 animate-in fade-in slide-in-from-bottom-2">
+              <div key={i} className="flex items-center gap-3 text-lg font-medium text-slate-300 animate-in fade-in slide-in-from-bottom-2">
                 {step.startsWith('✓') ? <CheckCircle2 className="text-green-500 shrink-0" /> : <Activity className="text-brand-500 shrink-0" />}
                 {step.replace('✓ ', '')}
               </div>
@@ -113,9 +113,9 @@ export default function MemoryImpact() {
           
           {/* Intelligence Scorecard & Patterns */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm lg:col-span-1">
-              <h2 className="text-lg font-bold text-slate-900 mb-4">Deal Memory Coverage</h2>
-              <p className="text-sm text-slate-500 mb-6">Calculated strictly from actual stored interactions.</p>
+            <div className="glass-panel p-6 rounded-xl border border-white/10 shadow-glass lg:col-span-1">
+              <h2 className="text-lg font-bold text-white mb-4">Deal Memory Coverage</h2>
+              <p className="text-sm text-slate-400 mb-6">Calculated strictly from actual stored interactions.</p>
               
               <div className="space-y-4">
                 <div>
@@ -123,8 +123,8 @@ export default function MemoryImpact() {
                     <span>Overall Coverage</span>
                     <span>{coverageScore}%</span>
                   </div>
-                  <div className="w-full bg-slate-100 rounded-full h-2">
-                    <div className="bg-brand-500 h-2 rounded-full transition-all duration-1000" style={{ width: `${coverageScore}%` }}></div>
+                  <div className="w-full bg-white/10 rounded-full h-2">
+                    <div className="bg-brand-500/200 h-2 rounded-full transition-all duration-1000" style={{ width: `${coverageScore}%` }}></div>
                   </div>
                 </div>
                 <div>
@@ -132,7 +132,7 @@ export default function MemoryImpact() {
                     <span>Pricing History</span>
                     <span>{dealMemories.some(m => m.type === 'Pricing') ? 'High' : 'Low'}</span>
                   </div>
-                  <div className="w-full bg-slate-100 rounded-full h-2 flex gap-1">
+                  <div className="w-full bg-white/10 rounded-full h-2 flex gap-1">
                     {Array.from({length: 10}).map((_, i) => (
                       <div key={i} className={`flex-1 rounded-sm ${i < 8 ? 'bg-green-500' : 'bg-slate-200'}`}></div>
                     ))}
@@ -143,7 +143,7 @@ export default function MemoryImpact() {
                     <span>Competitor Context</span>
                     <span>{dealMemories.some(m => m.type === 'Competitor') ? 'High' : 'Low'}</span>
                   </div>
-                  <div className="w-full bg-slate-100 rounded-full h-2 flex gap-1">
+                  <div className="w-full bg-white/10 rounded-full h-2 flex gap-1">
                     {Array.from({length: 10}).map((_, i) => (
                       <div key={i} className={`flex-1 rounded-sm ${i < 9 ? 'bg-orange-500' : 'bg-slate-200'}`}></div>
                     ))}
@@ -152,20 +152,20 @@ export default function MemoryImpact() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-xl border border-brand-200 shadow-sm lg:col-span-2">
-              <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <div className="glass-panel p-6 rounded-xl border border-brand-500/30 shadow-glass lg:col-span-2">
+              <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <BrainCircuit className="text-brand-500" /> Detected Patterns
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {patternData?.data?.patterns?.map((pattern, idx) => (
-                  <div key={idx} className="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                  <div key={idx} className="bg-white/5 p-4 rounded-lg border border-white/10">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="px-2 py-0.5 text-xs font-bold uppercase rounded bg-brand-100 text-brand-700">{pattern.type}</span>
+                      <span className="px-2 py-0.5 text-xs font-bold uppercase rounded bg-brand-500/30 text-brand-300">{pattern.type}</span>
                       {pattern.recent && <span className="px-2 py-0.5 text-xs font-bold uppercase rounded bg-red-100 text-red-700">Recent</span>}
                     </div>
-                    <h3 className="font-bold text-slate-800">{pattern.topic}</h3>
-                    <p className="text-sm text-slate-600 mt-1">Appeared {pattern.frequency} times</p>
-                    <div className="mt-3 pt-3 border-t border-slate-200 text-xs text-slate-500 italic">
+                    <h3 className="font-bold text-slate-200">{pattern.topic}</h3>
+                    <p className="text-sm text-slate-400 mt-1">Appeared {pattern.frequency} times</p>
+                    <div className="mt-3 pt-3 border-t border-white/10 text-xs text-slate-400 italic">
                       Evidence: "{pattern.evidence[0]}"
                     </div>
                   </div>
@@ -176,25 +176,25 @@ export default function MemoryImpact() {
 
           {/* Before vs After */}
           <div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">The Hindsight Impact</h2>
+            <h2 className="text-2xl font-bold text-white mb-6 text-center">The Hindsight Impact</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               
               {/* WITHOUT MEMORY */}
-              <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden opacity-75 grayscale-[30%]">
-                <div className="bg-slate-100 p-4 border-b border-slate-200">
-                  <h3 className="font-bold text-slate-600 flex items-center gap-2">
+              <div className="glass-panel rounded-xl shadow-glass border border-white/10 overflow-hidden opacity-75 grayscale-[30%]">
+                <div className="bg-white/10 p-4 border-b border-white/10">
+                  <h3 className="font-bold text-slate-400 flex items-center gap-2">
                     <Cpu size={18} /> Standard CRM AI (No Memory)
                   </h3>
-                  <p className="text-xs text-slate-500 mt-1">Prompt: "Prepare me for ABC Motors"</p>
+                  <p className="text-xs text-slate-400 mt-1">Prompt: "Prepare me for ABC Motors"</p>
                 </div>
                 <div className="p-6 space-y-4">
                   <div>
                     <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Recommended Action</h4>
-                    <p className="text-slate-700">{compareData.generic.recommendedNextAction}</p>
+                    <p className="text-slate-300">{compareData.generic.recommendedNextAction}</p>
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Objections</h4>
-                    <ul className="list-disc pl-4 text-sm text-slate-600">
+                    <ul className="list-disc pl-4 text-sm text-slate-400">
                       {compareData.generic.previousObjections?.map((o,i) => <li key={i}>{o}</li>)}
                     </ul>
                   </div>
@@ -202,15 +202,15 @@ export default function MemoryImpact() {
               </div>
 
               {/* WITH MEMORY */}
-              <div className="bg-white rounded-xl shadow-lg border-2 border-brand-500 overflow-hidden relative transform lg:scale-105">
-                <div className="absolute top-0 right-0 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg z-10">
+              <div className="glass-panel rounded-xl shadow-lg border-2 border-brand-500 overflow-hidden relative transform lg:scale-105">
+                <div className="absolute top-0 right-0 bg-brand-500/200 text-white text-xs font-bold px-3 py-1 rounded-bl-lg z-10">
                   DealMind AI
                 </div>
-                <div className="bg-brand-50 p-4 border-b border-brand-100">
+                <div className="bg-brand-500/20 p-4 border-b border-brand-100">
                   <h3 className="font-bold text-brand-900 flex items-center gap-2">
                     <Sparkles className="text-brand-500" size={18} /> DealMind (With Hindsight)
                   </h3>
-                  <p className="text-xs text-brand-600 mt-1">Prompt: "Prepare me for ABC Motors" + 10 Historical Interactions</p>
+                  <p className="text-xs text-brand-400 mt-1">Prompt: "Prepare me for ABC Motors" + 10 Historical Interactions</p>
                 </div>
                 <div className="p-6 space-y-6">
                   <div className="bg-brand-900 text-white p-4 rounded-lg">
@@ -234,14 +234,14 @@ export default function MemoryImpact() {
                 </div>
                 
                 {/* Transparency Section */}
-                <div className="bg-slate-50 p-6 border-t border-slate-200">
-                  <h4 className="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                <div className="bg-white/5 p-6 border-t border-white/10">
+                  <h4 className="text-sm font-bold text-slate-200 mb-3 flex items-center gap-2">
                     <BrainCircuit size={16} className="text-brand-500" /> Why this recommendation?
                   </h4>
                   <div className="space-y-2">
                     {compareData.memoriesUsed?.slice(0,3).map((m, i) => (
-                      <div key={i} className="text-xs bg-white p-2 rounded border border-slate-200 text-slate-600 shadow-sm">
-                        <span className="font-bold text-slate-800 mr-2">Memory {i+1}:</span>
+                      <div key={i} className="text-xs glass-panel p-2 rounded border border-white/10 text-slate-400 shadow-glass">
+                        <span className="font-bold text-slate-200 mr-2">Memory {i+1}:</span>
                         "{m.content || m.text}"
                       </div>
                     ))}
@@ -261,3 +261,4 @@ export default function MemoryImpact() {
     </div>
   );
 }
+

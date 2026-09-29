@@ -54,13 +54,13 @@ export default function Analytics() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-slate-900 mb-8">Analytics & Insights</h1>
+      <h1 className="text-3xl font-bold text-white mb-8">Analytics & Insights</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         {/* Stage Distribution */}
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <h2 className="text-lg font-bold text-slate-800 mb-4">Deal Stage Distribution</h2>
+        <div className="glass-panel p-6 rounded-xl shadow-glass border border-white/10">
+          <h2 className="text-lg font-bold text-slate-200 mb-4">Deal Stage Distribution</h2>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -85,8 +85,8 @@ export default function Analytics() {
         </div>
 
         {/* Intelligence Type Distribution */}
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <h2 className="text-lg font-bold text-slate-800 mb-4">AI Intelligence Extracted</h2>
+        <div className="glass-panel p-6 rounded-xl shadow-glass border border-white/10">
+          <h2 className="text-lg font-bold text-slate-200 mb-4">AI Intelligence Extracted</h2>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -109,8 +109,8 @@ export default function Analytics() {
         </div>
 
         {/* Pipeline Value by Stage */}
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 md:col-span-2">
-          <h2 className="text-lg font-bold text-slate-800 mb-4">Pipeline Value by Stage (₹)</h2>
+        <div className="glass-panel p-6 rounded-xl shadow-glass border border-white/10 md:col-span-2">
+          <h2 className="text-lg font-bold text-slate-200 mb-4">Pipeline Value by Stage (₹)</h2>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={pipelineData} margin={{ top: 20, right: 30, left: 40, bottom: 5 }}>
@@ -128,3 +128,4 @@ export default function Analytics() {
     </div>
   );
 }
+
